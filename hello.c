@@ -6,14 +6,15 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Yash");
 MODULE_VERSION("0.1");
 
-int hello_init(void)
+static int __init hello_init(void)
 {
-    printk(KERN_INFO "HELLO WORLD\n");
+    printk(KERN_ALERT "Hello form Module\n"); // <-- this shows the error in the dmesg log
+    printk(KERN_INFO "the process is \"%s\" (pid %i)\n",current->comm, current->pid);
     return 0;
 }
 
-void hello_exit(void){
-    printk(KERN_INFO "good bye world\n");
+static void __exit hello_exit(void){
+    printk(KERN_INFO "Module Exited\n");
 }
 
 module_init(hello_init);
